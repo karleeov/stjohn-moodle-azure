@@ -1,0 +1,61 @@
+# Moodle Azure Deployment Backup
+# Generated files and sensitive data
+
+# Terraform state files
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+
+# Azure credentials and secrets
+*.env
+.env.*
+config.php
+terraform.tfvars
+
+# Deployment artifacts
+*.zip
+moodle_*.zip
+emergency_fix*.zip
+
+# IDE and OS files
+.DS_Store
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Moodle specific
+moodledata/
+config-dist.php
+
+# Node modules (if any)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Large binary files
+*.iso
+*.dmg
+*.exe
+*.msi
+
+# Documentation builds
+docs/_build/

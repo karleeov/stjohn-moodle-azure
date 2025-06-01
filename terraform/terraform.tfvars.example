@@ -1,0 +1,25 @@
+# Copy this file to terraform.tfvars and fill in your values
+
+# Resource configuration
+resource_group_name = "rg-moodle-prod"
+location           = "East US"
+
+# MySQL configuration
+mysql_server_name      = "moodle-mysql-prod"
+mysql_admin_username   = "moodleadmin"
+mysql_admin_password   = "YourSecurePassword123!"
+mysql_sku_name        = "B_Standard_B2s"  # Upgrade for production
+database_name         = "moodle"
+
+# App Service configuration
+app_service_plan_name = "moodle-asp-prod"
+app_service_sku      = "P1v2"  # Production tier
+app_service_name     = "moodle-webapp-prod"
+
+# Tags
+tags = {
+  Environment = "Production"
+  Project     = "Moodle"
+  ManagedBy   = "Terraform"
+  Owner       = "YourName"
+}

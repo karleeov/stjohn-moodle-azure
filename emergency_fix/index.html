@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Moodle Site - Loading</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f4f4f4;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .status {
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      .info {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+      }
+      .warning {
+        background: #fff3e0;
+        border-left: 4px solid #ff9800;
+      }
+      .success {
+        background: #e8f5e8;
+        border-left: 4px solid #4caf50;
+      }
+      .error {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #2196f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        margin: 5px;
+      }
+      .btn:hover {
+        background: #1976d2;
+      }
+      .code {
+        background: #f5f5f5;
+        padding: 10px;
+        border-radius: 4px;
+        font-family: monospace;
+        margin: 10px 0;
+      }
+      h1 {
+        color: #333;
+      }
+      h2 {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎓 Moodle Site Status</h1>
+
+      <div class="status info">
+        <h2>📋 Current Status</h2>
+        <p><strong>Site:</strong> moodle-site-0530.azurewebsites.net</p>
+        <p><strong>Status:</strong> Deployment in progress</p>
+        <p><strong>Time:</strong> <span id="currentTime"></span></p>
+      </div>
+
+      <div class="status warning">
+        <h2>⚠️ If you're seeing a 404 error</h2>
+        <p>
+          The Moodle deployment is still in progress. This is normal for large
+          applications.
+        </p>
+        <p><strong>Expected completion:</strong> 5-10 minutes</p>
+      </div>
+
+      <div class="status success">
+        <h2>✅ Quick Tests</h2>
+        <p>Try these links to test different parts of the application:</p>
+        <a href="/index.php" class="btn">Moodle Main Page</a>
+        <a href="/debug.php" class="btn">Debug Info</a>
+        <a href="/test.php" class="btn">PHP Test</a>
+      </div>
+
+      <div class="status info">
+        <h2>🔧 Troubleshooting</h2>
+        <p>If the site is still not working after 10 minutes:</p>
+        <ol>
+          <li>Check that the deployment has completed</li>
+          <li>Verify the database connection</li>
+          <li>Review the application logs</li>
+        </ol>
+      </div>
+
+      <div class="status info">
+        <h2>📊 Azure CLI Commands</h2>
+        <div class="code">
+          # Check deployment status<br />
+          az webapp deployment list --resource-group rg-karlli-4586_ai --name
+          moodle-site-0530<br /><br />
+
+          # Restart the application<br />
+          az webapp restart --resource-group rg-karlli-4586_ai --name
+          moodle-site-0530<br /><br />
+
+          # View logs<br />
+          az webapp log tail --resource-group rg-karlli-4586_ai --name
+          moodle-site-0530
+        </div>
+      </div>
+
+      <div class="status info">
+        <h2>🚀 Next Steps</h2>
+        <p>Once Moodle loads successfully:</p>
+        <ol>
+          <li>Complete the Moodle installation wizard</li>
+          <li>Configure the database connection</li>
+          <li>Set up your admin account</li>
+          <li>Configure site settings</li>
+        </ol>
+      </div>
+    </div>
+
+    <script>
+      // Update current time
+      function updateTime() {
+        document.getElementById("currentTime").textContent =
+          new Date().toLocaleString();
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+
+      // Auto-refresh every 10 seconds to check if Moodle is ready
+      function checkMoodle() {
+        fetch("/index.php")
+          .then((response) => {
+            if (response.ok && !response.url.includes("index.html")) {
+              window.location.href = "/index.php";
+            }
+          })
+          .catch(() => {
+            // Moodle not ready yet, continue waiting
+          });
+      }
+
+      // Check immediately and then every 10 seconds
+      checkMoodle();
+      setInterval(checkMoodle, 10000);
+    </script>
+  </body>
+</html>
