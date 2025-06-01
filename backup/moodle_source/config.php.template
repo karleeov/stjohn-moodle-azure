@@ -1,0 +1,34 @@
+<?php
+$CFG = new stdClass();
+
+$CFG->dbtype    = 'mysqli';
+$CFG->dblibrary = 'native';
+$CFG->dbhost    = 'moodledb0530.mysql.database.azure.com:3306';
+$CFG->dbname    = 'moodledb';
+$CFG->dbuser    = 'moodleadmin@moodledb0530';
+$CFG->dbpass    = 'YOUR_MYSQL_PASSWORD_HERE';  // Replace with your actual password
+$CFG->prefix    = 'mdl_';
+$CFG->dboptions = array(
+    'ssl' => array(
+        'verify_server_cert' => false,
+    )
+);
+
+$CFG->wwwroot   = 'https://moodle-site-0530.azurewebsites.net';
+$CFG->dataroot  = '/home/site/wwwroot/moodledata';
+$CFG->directorypermissions = 0777;
+$CFG->admin = 'admin';
+
+// This is important for Azure - helps with load balancing
+$CFG->sslproxy = true;
+
+// Caching settings (Recommended for Azure)
+$CFG->sessiontimeout = 7200;  // 2 hours
+$CFG->session_handler_class = '\core\session\file';
+$CFG->session_file_save_path = ini_get('session.save_path');
+
+// Debugging (turn off for production)
+$CFG->debug = 32767;  // Enable all debugging
+$CFG->debugdisplay = 1;  // Display errors
+
+require_once(__DIR__ . '/lib/setup.php');
